@@ -4,8 +4,11 @@
 
 int main()
 {
-    std::ifstream ifs{"/home/jona/Projects/AdventOfCode/2022/inputs/test.txt"};
-    auto result = aoc::find_max_calories(ifs);
-    std::cout << result << std::endl;
+    std::ifstream ifs{"../../2022/inputs/day1.txt"};
+    auto result = aoc::day1::find_calories_per_elf(ifs);
+    auto biggest = result.rbegin();
+    std::cout << "Max: " << *biggest << std::endl;
+    std::cout << "Top3: " << *(biggest++) + *(biggest++) + *(biggest++) << std::endl;
+
     return 0;
 }

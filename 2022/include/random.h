@@ -1,8 +1,9 @@
 #pragma once
 
 #include <fstream>
+#include <set>
 
-namespace aoc
+namespace aoc::day1
 {
-    int find_max_calories(std::ifstream &stream);
+    std::set<int> find_calories_per_elf(std::ifstream &stream);
 }
