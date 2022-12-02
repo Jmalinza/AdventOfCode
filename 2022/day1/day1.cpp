@@ -1,4 +1,4 @@
-#include "random.h"
+#include "day1.h"
 
 #include <iostream>
 
