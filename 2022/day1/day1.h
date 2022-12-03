@@ -8,13 +8,18 @@ namespace aoc::day1
     bool get_line_from_file(std::string path, std::string& outline){
         static std::ifstream ifs{path};
         if(ifs){
-            if(ifs.eof()) return false;
+            if(ifs.eof()) {
+                ifs.close();
+                ifs.open(path);
+                return false;
+            }
 
             std::getline(ifs, outline);
             return true;
         }
-        return false;
 
+        ifs.close();
+        return false;
     }
 
     std::set<int> find_calories_per_elf(std::string path){
@@ -34,6 +39,4 @@ namespace aoc::day1
 
         return result;
     }
-
-
 }
