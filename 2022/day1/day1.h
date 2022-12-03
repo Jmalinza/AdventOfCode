@@ -8,6 +8,8 @@ namespace aoc::day1
     bool get_line_from_file(std::string path, std::string& outline){
         static std::ifstream ifs{path};
         if(ifs){
+            if(ifs.eof()) return false;
+
             std::getline(ifs, outline);
             return true;
         }
