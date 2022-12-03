@@ -1,9 +1,11 @@
 #pragma once
 
 #include "../day1/day1.h"
+
 #include <map>
 #include <string>
-#include <tuple>
+#include <sstream>
+
 namespace aoc::day2
 {
     class RockScissorPaper
