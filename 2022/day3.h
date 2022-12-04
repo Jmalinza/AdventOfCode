@@ -1,11 +1,14 @@
 #pragma once
 
-#include "../day1/day1.h"
+#include "utility.h"
 
 #include <algorithm>
 #include <cctype>
+#include <set>
 #include <string>
 #include <map>
+
+using namespace aoc::utility;
 
 namespace aoc::day3
 {
@@ -64,7 +67,7 @@ namespace aoc::day3
     int find_priority_of_common_items(std::string path) {
         Bag bag;
         int total_priority = 0;
-        while(aoc::day1::get_line_from_file(path, bag))
+        while(get_line_from_file(path, bag))
         {
             auto items = find_common_item_in_pockets(bag);
             for(const Item& item: items)
@@ -84,9 +87,9 @@ namespace aoc::day3
         Bag bag2;
         Bag bag3;
         int total_priority = 0;
-        while(aoc::day1::get_line_from_file(path, bag1)){
-            aoc::day1::get_line_from_file(path, bag2);
-            aoc::day1::get_line_from_file(path, bag3);
+        while(get_line_from_file(path, bag1)){
+            get_line_from_file(path, bag2);
+            get_line_from_file(path, bag3);
 
             auto bag1_bag2_common = find_common_items_in_bags(bag1, bag2);
             Bag temp_bag(bag1_bag2_common.begin(), bag1_bag2_common.end());

@@ -1,10 +1,12 @@
 #pragma once
 
-#include "../day1/day1.h"
+#include "utility.h"
 
 #include <map>
 #include <string>
 #include <sstream>
+
+using namespace aoc::utility;
 
 namespace aoc::day2
 {
@@ -13,6 +15,25 @@ namespace aoc::day2
         using Action = std::string;
         using Round = std::pair<Action , Action>;
         public:
+            static int score_round(Action opponent, Action player)
+            {
+                if(opponent.empty() && player.empty()) return 0;
+
+                auto round_score = _round_score_map.at({map_action(opponent), map_action(player)});
+                auto action_score = _action_score_map.at(map_action(player));
+
+                return round_score + action_score;
+            }
+
+            static std::string cheat(Action opponent, std::string needed_result)
+            {
+                if(needed_result == "Y") return opponent;
+
+                auto possible_actions = _result_action_map.at(needed_result);
+
+                return possible_actions[opponent];
+            }
+        private:
             static Action map_action(Action action)
             {
                 auto result = _action_map1.find(action);
@@ -22,23 +43,6 @@ namespace aoc::day2
                 return result->second;
             }
 
-            static int score_round(Action opponent, Action player)
-            {
-                if(opponent.empty() && player.empty()) return 0;
-
-                auto round_score = _round_score_map.at({map_action(opponent), map_action(player)});
-                auto action_score = _action_score_map.at(map_action(player));
-                return round_score + action_score;
-            }
-
-            static std::string cheat(Action opponent, std::string needed_result)
-            {
-                if(needed_result == "Y") return opponent;
-
-                auto possible_actions = _result_action_map.at(needed_result);
-                return possible_actions[opponent];
-            }
-        private:
             static inline const std::map<Action , Action> _action_map1{
                     {"A", "rock"}, {"B", "paper"}, {"C", "scissors"}};
 
@@ -59,7 +63,7 @@ namespace aoc::day2
                     {{"scissors", "rock"}    , 6}
             };
 
-            static inline const std::map<std::string, std::map<std::string, std::string>> _result_action_map{
+            static inline const std::map<std::string, std::map<Action, Action>> _result_action_map{
                     {"Z",
                             {{"A", "B"},
                              {"B", "C"},
@@ -76,7 +80,7 @@ namespace aoc::day2
     int find_score_from_strategy_guide(std::string path){
         std::string line;
         int score = 0;
-        while(aoc::day1::get_line_from_file(path, line)){
+        while(get_line_from_file(path, line)){
             std::stringstream round(line);
             std::string opponent;
             std::string player;
@@ -84,6 +88,7 @@ namespace aoc::day2
             round >> player;
             score += RockScissorPaper::score_round(opponent, player);
         }
+
         return score;
     }
 
@@ -91,7 +96,7 @@ namespace aoc::day2
         RockScissorPaper rsp;
         std::string line;
         int score = 0;
-        while(aoc::day1::get_line_from_file(path, line)){
+        while(get_line_from_file(path, line)){
             std::stringstream round(line);
             std::string opponent;
             std::string needed_result;
@@ -99,6 +104,7 @@ namespace aoc::day2
             round >> needed_result;
             score += RockScissorPaper::score_round(opponent, RockScissorPaper::cheat(opponent, needed_result));
         }
+
         return score;
     }
 }

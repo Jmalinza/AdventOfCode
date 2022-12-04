@@ -1,26 +1,12 @@
-#include <fstream>
+#include "utility.h"
+
 #include <set>
 #include <string>
 
+using namespace aoc::utility;
+
 namespace aoc::day1
 {
-    bool get_line_from_file(std::string path, std::string& outline){
-        static std::ifstream ifs{path};
-        if(ifs){
-            if(ifs.eof()) {
-                ifs.close();
-                ifs.open(path);
-                return false;
-            }
-
-            std::getline(ifs, outline);
-            return true;
-        }
-
-        ifs.close();
-        return false;
-    }
-
     std::set<int> find_calories_per_elf(std::string path){
         std::set<int> result;
         int current_sum = 0;
