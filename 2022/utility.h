@@ -6,7 +6,7 @@
 #include <vector>
 
 namespace aoc::utility{
-    bool get_line_from_file(std::string path, std::string& outline)
+    bool get_line_from_file(const std::string& path, std::string& outline)
     {
         static std::ifstream ifs{path};
         if(ifs){
