@@ -8,7 +8,7 @@
 
 using namespace aoc::utility;
 
-namespace aoc::day2
+namespace aoc::twenty22
 {
     class RockScissorPaper
     {

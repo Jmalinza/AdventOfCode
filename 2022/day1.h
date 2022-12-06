@@ -5,7 +5,7 @@
 
 using namespace aoc::utility;
 
-namespace aoc::day1
+namespace aoc::twenty22
 {
     std::set<int> find_calories_per_elf(std::string path){
         std::set<int> result;

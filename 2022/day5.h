@@ -7,7 +7,7 @@
 
 using namespace aoc::utility;
 
-namespace aoc::day5
+namespace aoc::twenty22
 {
     std::vector<std::string> get_initial_stack_conditions(std::string path)
     {

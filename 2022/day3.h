@@ -10,7 +10,7 @@
 
 using namespace aoc::utility;
 
-namespace aoc::day3
+namespace aoc::twenty22
 {
     using Item = char;
     using Bag = std::string;

@@ -4,7 +4,7 @@
 
 using namespace aoc::utility;
 
-namespace aoc::day4
+namespace aoc::twenty22
 {
     int find_fully_overlapping_ranges(std::string path)
     {
