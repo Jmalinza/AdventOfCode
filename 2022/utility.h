@@ -34,4 +34,13 @@ namespace aoc::utility{
 
         return result;
     }
+
+    bool isDigit(const std::string& string)
+    {
+        std::string s(string);
+        while(!s.empty() && std::isdigit(s.back()))
+            s.pop_back();
+
+        return s.empty();
+    }
 }
