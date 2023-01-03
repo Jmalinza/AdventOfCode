@@ -1,7 +1,5 @@
 #include "utility.h"
 
-#include <range/v3/all.hpp>
-
 #include <set>
 #include <string>
 
