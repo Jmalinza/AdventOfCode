@@ -22,7 +22,12 @@ elseif(${CMAKE_BUILD_TYPE} MATCHES Release)
     message("${BoldRed} Release Build ${ColorReset}")
 endif()
 
-set(CONAN_COMMAND "$ENV{HOME}/.local/bin/conan")
+if(WIN32)
+    set(CONAN_COMMAND "conan")
+elseif(UNIX)
+    set(CONAN_COMMAND "$ENV{HOME}/.local/bin/conan")
+endif()
+
 execute_process(COMMAND ${CONAN_COMMAND} install ${CMAKE_HOME_DIRECTORY}/conanfile.txt -b missing WORKING_DIRECTORY ${CMAKE_BINARY_DIR})
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()
