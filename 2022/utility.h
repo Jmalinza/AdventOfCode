@@ -6,22 +6,20 @@
 #include <vector>
 
 namespace aoc::utility{
-    bool get_line_from_file(const std::string& path, std::string& outline)
+    std::vector<std::string> readAllLinesFrom(const std::string& path)
     {
-        static std::ifstream ifs{path};
-        if(ifs){
-            if(ifs.eof()) {
-                ifs.close();
-                ifs.open(path);
-                return false;
-            }
-
-            std::getline(ifs, outline);
-            return true;
+        std::ifstream ifs;
+        ifs.open(path);
+    
+        std::vector<std::string> result;
+        if(ifs.is_open()){
+            std::string line;
+            while(std::getline(ifs, line))
+                result.emplace_back(std::move(line));
         }
 
         ifs.close();
-        return false;
+        return result;
     }
 
     auto split(const std::string& string, char delim = ' ')
