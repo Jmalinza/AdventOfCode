@@ -60,9 +60,9 @@ namespace aoc::twenty22
         fs["/"]->_parent = fs["/"];
 
         auto current_dir = fs["/"];
-        std::string line;
-        get_line_from_file(path, line); // skip first line
-        while(get_line_from_file(path, line))
+        std::vector<std::string> file(readAllLinesFrom(path));
+        std::vector<std::string>(file.begin() + 1, file.end()).swap(file);
+        for(const auto& line: file)
         {
             auto tokens = split(line);
             if(tokens.front() == "$")

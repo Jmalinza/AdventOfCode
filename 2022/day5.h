@@ -2,6 +2,7 @@
 
 #include "utility.h"
 
+#include <algorithm>
 #include <cctype>
 #include <map>
 
@@ -12,8 +13,8 @@ namespace aoc::twenty22
     std::vector<std::string> get_initial_stack_conditions(std::string path)
     {
         std::map<int, std::string> _stack_crates_map;
-        std::string line;
-        while(get_line_from_file(path, line))
+        std::vector<std::string> file(readAllLinesFrom(path));
+        for(const auto& line: file)
         {
             if(std::isdigit(line[1])) break;
 
@@ -56,8 +57,18 @@ namespace aoc::twenty22
     {
         auto stacks = get_initial_stack_conditions(path);
 
-        std::string line;
-        while(get_line_from_file(path, line))
+        std::vector<std::string> file(readAllLinesFrom(path));
+        
+        int index = 0;
+        for(const auto& line: file)
+        {
+            if(!line.empty()) index++;
+            else break;
+        }
+
+        std::vector<std::string>(file.begin() + index + 1, file.end()).swap(file);
+
+        for(const auto& line: file)
         {
             if(line.empty()) continue;
 
@@ -81,8 +92,18 @@ namespace aoc::twenty22
     {
         auto stacks = get_initial_stack_conditions(path);
 
-        std::string line;
-        while(get_line_from_file(path, line))
+        std::vector<std::string> file(readAllLinesFrom(path));
+        
+        int index = 0;
+        for(const auto& line: file)
+        {
+            if(!line.empty()) index++;
+            else break;
+        }
+
+        std::vector<std::string>(file.begin() + index + 1, file.end()).swap(file);
+
+        for(const auto& line: file)
         {
             if(line.empty()) continue;
 

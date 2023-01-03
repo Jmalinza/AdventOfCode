@@ -8,9 +8,9 @@ namespace aoc::twenty22
 {
     int find_fully_overlapping_ranges(std::string path)
     {
+        std::vector<std::string> file(readAllLinesFrom(path));
         int result = 0;
-        std::string line;
-        while(get_line_from_file(path, line))
+        for(const auto& line: file)
         {
             auto ranges = split(line, ',');
             auto r1 = split(ranges.front(),'-');
@@ -30,9 +30,11 @@ namespace aoc::twenty22
 
     int find_overlapping_ranges(std::string path)
     {
+
+        std::vector<std::string> file(readAllLinesFrom(path));
         int result = 0;
         std::string line;
-        while(get_line_from_file(path, line))
+        for(const auto& line: file)
         {
             auto ranges = split(line, ',');
             auto r1 = split(ranges.front(),'-');

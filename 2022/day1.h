@@ -1,5 +1,7 @@
 #include "utility.h"
 
+#include <range/v3/all.hpp>
+
 #include <set>
 #include <string>
 
@@ -8,10 +10,11 @@ using namespace aoc::utility;
 namespace aoc::twenty22
 {
     std::set<int> find_calories_per_elf(std::string path){
+        std::vector<std::string> file(readAllLinesFrom(path));
         std::set<int> result;
         int current_sum = 0;
         std::string number;
-        while(get_line_from_file(path, number))
+        for(const auto& number: file)
         {
             if(number.empty())
             {

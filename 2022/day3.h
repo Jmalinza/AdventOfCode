@@ -65,9 +65,9 @@ namespace aoc::twenty22
     }
 
     int find_priority_of_common_items(std::string path) {
-        Bag bag;
+        std::vector<std::string> file(readAllLinesFrom(path));
         int total_priority = 0;
-        while(get_line_from_file(path, bag))
+        for(const auto& bag: file)
         {
             auto items = find_common_item_in_pockets(bag);
             for(const Item& item: items)
@@ -83,13 +83,13 @@ namespace aoc::twenty22
     }
 
     int find_priority_of_badges(std::string path){
-        Bag bag1;
-        Bag bag2;
-        Bag bag3;
+        std::vector<std::string> file(readAllLinesFrom(path));
         int total_priority = 0;
-        while(get_line_from_file(path, bag1)){
-            get_line_from_file(path, bag2);
-            get_line_from_file(path, bag3);
+        for(auto i = 0; i < file.size(); i + 3)
+        {
+            Bag bag1 = file[i];
+            Bag bag2 = file[i + 1];
+            Bag bag3 = file[i + 2];
 
             auto bag1_bag2_common = find_common_items_in_bags(bag1, bag2);
             Bag temp_bag(bag1_bag2_common.begin(), bag1_bag2_common.end());

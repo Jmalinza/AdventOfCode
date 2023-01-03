@@ -78,9 +78,10 @@ namespace aoc::twenty22
     };
 
     int find_score_from_strategy_guide(std::string path){
-        std::string line;
+        std::vector<std::string> file(readAllLinesFrom(path));
         int score = 0;
-        while(get_line_from_file(path, line)){
+        for(const auto& line: file)
+        {
             std::stringstream round(line);
             std::string opponent;
             std::string player;
@@ -93,10 +94,10 @@ namespace aoc::twenty22
     }
 
     int find_score_from_fixing_guide(std::string path){
-        RockScissorPaper rsp;
-        std::string line;
+        std::vector<std::string> file(readAllLinesFrom(path));
         int score = 0;
-        while(get_line_from_file(path, line)){
+        for(const auto& line: file)
+        {
             std::stringstream round(line);
             std::string opponent;
             std::string needed_result;
