@@ -17,7 +17,7 @@ namespace aoc::day6
         for(auto i = 0; i < line.length() - 4; i++)
         {
             auto window = line.substr(i, 4);
-            window |= ranges::action::sort | ranges::action::unique;
+            window |= ranges::actions::sort | ranges::actions::unique;
             if(window.length() == 4)
                 return i + 4;
         }
@@ -33,7 +33,7 @@ namespace aoc::day6
         for(auto i = 0; i < line.length() - 14; i++)
         {
             auto window = line.substr(i, 14);
-            window |= ranges::action::sort | ranges::action::unique;
+            window |= ranges::actions::sort | ranges::actions::unique;
             if(window.length() == 14)
                 return i + 14;
         }

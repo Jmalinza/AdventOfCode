@@ -22,9 +22,10 @@ elseif(${CMAKE_BUILD_TYPE} MATCHES Release)
     message("${BoldRed} Release Build ${ColorReset}")
 endif()
 
-if(WIN32)
+# Mac install using Homebrew, Windows with Msys2, Unix using Conda
+if ((${CMAKE_HOST_SYSTEM_NAME} MATCHES "Windows") OR (${CMAKE_HOST_SYSTEM_NAME} MATCHES "Darwin"))
     set(CONAN_COMMAND "conan")
-elseif(UNIX)
+elseif(${CMAKE_HOST_SYSTEM_NAME} MATCHES "Unix")
     set(CONAN_COMMAND "$ENV{HOME}/.local/bin/conan")
 endif()
 
