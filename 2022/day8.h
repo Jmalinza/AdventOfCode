@@ -24,19 +24,21 @@ namespace aoc::twenty22
         int cols = file.at(0).size();
         std::vector<int> data;
         data.reserve(rows*cols);
+
         for(auto& line: file)
         {
             auto trees = chunks(line, 1);
             auto heights = trees 
                             | ranges::views::transform( [](std::string t) { return std::stoi(t);} ) 
                             | ranges::to<std::vector>();
+
             data.insert(data.end(), heights.begin(), heights.end());
         }
 
         return {rows, cols, std::move(data)};
     }
 
-    bool is_visible(const std::vector<int>& trees, int index)
+    bool is_outside_visible(const std::vector<int>& trees, int index)
     {
         auto test_tree  = trees.at(index);
         auto lower_side = std::vector<int>(trees.begin(), trees.begin() + index);
@@ -49,7 +51,7 @@ namespace aoc::twenty22
         return is_visible_lower | is_visible_upper;
     }
 
-    int count_visible_trees(const Forest& forest)
+    int count_outside_visible_trees(const Forest& forest)
     {
         int height = std::get<0>(forest);
         int width  = std::get<1>(forest);
@@ -58,18 +60,82 @@ namespace aoc::twenty22
         int result = 0;
         for(int r = 0; r < height; r++)
         {
-            auto current_row = ranges::views::slice(data, r * height, r * height + width) | ranges::to<std::vector>();
+            auto current_row = data 
+                                | ranges::views::slice(r * height, r * height + width) 
+                                | ranges::to<std::vector>();
             for(int c = 0; c < width; c++)
             {
-                auto current_col = data | ranges::views::drop(c) | ranges::views::stride(width) 
-                                        | ranges::to<std::vector>();
-                bool is_visible_horizontal = is_visible(current_row, c);
-                bool is_visible_vertical   = is_visible(current_col, r);
+                auto current_col = data 
+                                    | ranges::views::drop(c) 
+                                    | ranges::views::stride(width)  
+                                    | ranges::to<std::vector>();
+
+                bool is_visible_horizontal = is_outside_visible(current_row, c);
+                bool is_visible_vertical   = is_outside_visible(current_col, r);
 
                 result += (is_visible_horizontal | is_visible_vertical) ? 1:0;
             }
         }
 
         return result;
+    }
+
+    int find_scenic_score(const std::vector<int>& trees, int index)
+    {
+        auto test_tree  = trees.at(index);
+        auto lower_side = std::vector<int>(trees.begin(), trees.begin() + index);
+        auto upper_side = std::vector<int>(trees.begin() + index + 1, trees.end());
+
+        int upper_visible = 0;
+        int lower_visible = 0;
+
+        while(!lower_side.empty())
+        {
+            lower_visible++;
+            if(lower_side.back() >= test_tree) break;
+
+            lower_side.pop_back();
+        }
+        
+        std::reverse(upper_side.begin(), upper_side.end());
+        while(!upper_side.empty())
+        {
+            upper_visible++;
+            if(upper_side.back() >= test_tree ) break;
+
+            upper_side.pop_back();
+        }
+        
+        return upper_visible * lower_visible;
+    }
+
+    int find_best_scenic_score(const Forest& forest)
+    {
+        int height = std::get<0>(forest);
+        int width  = std::get<1>(forest);
+        auto& data = std::get<2>(forest);
+
+        std::vector<int> scores;
+        scores.reserve(height * width);
+        for(int r = 0; r < height; r++)
+        {
+            auto current_row = data 
+                                | ranges::views::slice(r * height, r * height + width) 
+                                | ranges::to<std::vector>();
+            for(int c = 0; c < width; c++)
+            {
+                auto current_col = data 
+                                    | ranges::views::drop(c) 
+                                    | ranges::views::stride(width)  
+                                    | ranges::to<std::vector>();
+
+                auto row_score = find_scenic_score(current_row, c);
+                auto col_score = find_scenic_score(current_col, r);
+                scores.emplace_back(row_score * col_score);
+            }
+        }
+
+        scores |= ranges::actions::sort;
+        return scores.back();
     }
 }
