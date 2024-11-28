@@ -1,43 +1,39 @@
 #pragma once
 
-#include "utility.h"
+#include "utility/cpp/utilities.h"
 
-#include <range/v3/action/sort.hpp>
-#include <range/v3/action/unique.hpp>
+#include <algorithm>
 
-using namespace aoc::utility;
+using namespace utility;
 
-namespace aoc::day6
-{
-    int find_start_packet_index(std::string path)
-    {
-        std::vector<std::string> file(readAllLinesFrom(path));
-        auto line = file.front();
+int find_start_packet_index(std::string path) {
+  std::vector<std::string> file(readAllLinesFrom(path));
+  auto line = file.front();
 
-        for(auto i = 0; i < line.length() - 4; i++)
-        {
-            auto window = line.substr(i, 4);
-            window |= ranges::actions::sort | ranges::actions::unique;
-            if(window.length() == 4)
-                return i + 4;
-        }
+  for (auto i = 0U; i < line.length() - 4U; i++) {
+    auto window = line.substr(i, 4);
+    std::ranges::sort(window);
+    const auto [first, last] = std::ranges::unique(window);
+    window.erase(first, last);
+    if (window.length() == 4U)
+      return i + 4;
+  }
 
-        return 0;
-    }
+  return 0;
+}
 
-    int find_start_message_index(std::string path)
-    {
-        std::vector<std::string> file(readAllLinesFrom(path));
-        auto line = file.front();
+int find_start_message_index(std::string path) {
+  std::vector<std::string> file(readAllLinesFrom(path));
+  auto line = file.front();
 
-        for(auto i = 0; i < line.length() - 14; i++)
-        {
-            auto window = line.substr(i, 14);
-            window |= ranges::actions::sort | ranges::actions::unique;
-            if(window.length() == 14)
-                return i + 14;
-        }
+  for (auto i = 0U; i < line.length() - 14U; i++) {
+    auto window = line.substr(i, 14);
+    std::ranges::sort(window);
+    const auto [first, last] = std::ranges::unique(window);
+    window.erase(first, last);
+    if (window.length() == 14U)
+      return i + 14;
+  }
 
-        return 0;
-    }
+  return 0;
 }

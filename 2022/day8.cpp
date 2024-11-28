@@ -1,15 +1,13 @@
 #include "day8.h"
 
-#define FMT_HEADER_ONLY
-#include <fmt/format.h>
+#include <iostream>
 
-int main()
-{
-    auto forest = aoc::twenty22::build_forest("../../2022/inputs/day8.txt");
-    auto result = aoc::twenty22::count_outside_visible_trees(forest);
-    fmt::print("Number of visible trees: {}\n", result);
+int main() {
+  auto forest = build_forest("2022/inputs/day8.txt");
+  auto result = count_outside_visible_trees(forest);
+  std::cout << "Number of visible trees: " << result << "\n";
 
-    result = aoc::twenty22::find_best_scenic_score(forest);
-    fmt::print("Best scenic score: {}\n", result);
-    return 0;
+  result = find_best_scenic_score(forest);
+  std::cout << "Best scenic score: " << result << "\n";
+  return 0;
 }

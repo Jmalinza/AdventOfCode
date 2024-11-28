@@ -1,0 +1,14 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Debug current day",
+            "type": "shell",
+            "command": "bazel build --config=gcc11 //${relativeFileDirname}:${fileBasenameNoExtension} -c dbg",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        }
+    ]
+}
