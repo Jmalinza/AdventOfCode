@@ -2,10 +2,28 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Build and Debug",
+            "name": "(GO) Build and Debug",
             "type": "cppdbg",
             "request": "launch",
-            "preLaunchTask": "Debug current day",
+            "preLaunchTask": "(GO) Build current day",
+            "program": "${workspaceFolder}/bazel-bin/${relativeFileDirname}/${fileBasenameNoExtension}_/${fileBasenameNoExtension}",
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "externalConsole": false,
+            "targetArchitecture": "x64",
+            "MIMode": "gdb",
+            "miDebuggerPath": "/usr/bin/gdb",
+            "setupCommands": [
+                {
+                    "text": "source ${workspaceFolder}/bazel-AdventOfCode/external/rules_go~~go_sdk~go_default_sdk/src/runtime/runtime-gdb.py"
+                }
+            ]
+        },
+        {
+            "name": "(C++) Build and Debug",
+            "type": "cppdbg",
+            "request": "launch",
+            "preLaunchTask": "(C++) Build current day",
             "program": "${workspaceFolder}/bazel-bin/${relativeFileDirname}/${fileBasenameNoExtension}",
             "args": [],
             "stopAtEntry": false,

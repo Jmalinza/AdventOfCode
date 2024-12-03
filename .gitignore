@@ -1,6 +1,2 @@
 # Bazel files
 /bazel-*
-MODULE.bazel.lock
-
-# VS Code settings
-.vscode/settings.json

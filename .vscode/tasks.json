@@ -2,13 +2,22 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "Debug current day",
+            "label": "(C++) Build current day",
             "type": "shell",
             "command": "bazel build --config=gcc11 //${relativeFileDirname}:${fileBasenameNoExtension} -c dbg",
             "group": {
                 "kind": "build",
                 "isDefault": true
             }
-        }
+        },
+        {
+            "label": "(GO) Build current day",
+            "type": "shell",
+            "command": "bazel build //${relativeFileDirname}:${fileBasenameNoExtension} -c dbg",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
     ]
 }
